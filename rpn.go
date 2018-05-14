@@ -13,6 +13,7 @@ var handlers = [5]string{"+", "-", "/", "*", "exit"}
 var stack = make([]string, 0)
 
 func main() {
+	var checker bool
 
 	for {
 		fmt.Printf(">> ")
@@ -24,11 +25,18 @@ func main() {
 		} else if input == "exit" {
 			os.Exit(3)
 		} else {
-			checker := inArray(input, handlers)
+			checker = inArray(input, handlers)
 			if checker {
 				output(evaluate(input))
 			} else {
-				stack = append(stack, input)
+				checker = isCharacter(input)
+				if checker {
+					stack = append(stack, input)
+				} else {
+					fmt.Println("syntax error")
+					continue
+				}
+
 			}
 		}
 
@@ -53,8 +61,16 @@ func output(data string) {
 }
 
 func evaluate(data string) string {
-	//do something
-	return "hello"
+	if data == "+" {
+		//add
+	} else if data == "/" {
+		//div
+	} else if data == "*" {
+		//mul
+	} else if data == "-" {
+		//sub
+	}
+	return "yeah"
 }
 
 func inArray(val string, array [5]string) (exists bool) {
@@ -63,6 +79,16 @@ func inArray(val string, array [5]string) (exists bool) {
 		if val == v {
 			exists = true
 			return
+		}
+	}
+	return
+}
+
+func isCharacter(val string) (erg bool) {
+	for i := 0; i < len(val); i++ {
+		erg = false
+		if val[i] >= 48 && val[i] <= 57 {
+			erg = true
 		}
 	}
 	return
