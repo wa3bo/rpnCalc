@@ -9,10 +9,10 @@ import (
 	handlers := [5]string{"+", "-", "/", "*", "exit"}
 	stack := make([]string, 0)
 }*/
+var handlers = [5]string{"+", "-", "/", "*", "exit"}
+var stack = make([]string, 0)
 
 func main() {
-	handlers := [5]string{"+", "-", "/", "*", "exit"}
-	stack := make([]string, 0)
 
 	for {
 		fmt.Printf(">> ")
@@ -24,11 +24,12 @@ func main() {
 		} else if input == "exit" {
 			os.Exit(3)
 		} else {
-
-			fmt.Println(input)
-			stack = append(stack, input)
-			fmt.Println(stack)
-			fmt.Println(handlers[1])
+			checker := inArray(input, handlers)
+			if checker {
+				output(evaluate(input))
+			} else {
+				stack = append(stack, input)
+			}
 		}
 
 	}
@@ -45,4 +46,24 @@ func read() string {
 	} else {
 		return number
 	}
+}
+
+func output(data string) {
+	fmt.Println(data)
+}
+
+func evaluate(data string) string {
+	//do something
+	return "hello"
+}
+
+func inArray(val string, array [5]string) (exists bool) {
+	exists = false
+	for _, v := range array {
+		if val == v {
+			exists = true
+			return
+		}
+	}
+	return
 }
