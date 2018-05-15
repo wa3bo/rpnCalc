@@ -68,8 +68,8 @@ func output(data string) {
 
 //handle operations
 func evaluate(z string) string {
-	if data.empty() {
-		return "stack is empty"
+	if data.size() <= 1 {
+		return "can't handle operation"
 	} else {
 		if z == "+" {
 			data.put(data.pop() + data.pop())
@@ -116,9 +116,7 @@ func isCharacter(val string) (erg bool) {
 }
 
 //for stack operations
-func (s stack) empty() bool {
-	return len(s.vec) == 0
-}
+
 func (s *stack) put(i int) {
 	s.vec = append(s.vec, i)
 }
@@ -126,4 +124,7 @@ func (s *stack) pop() int {
 	d := s.vec[len(s.vec)-1]
 	s.vec = s.vec[:len(s.vec)-1]
 	return d
+}
+func (s *stack) size() int {
+	return len(s.vec)
 }
